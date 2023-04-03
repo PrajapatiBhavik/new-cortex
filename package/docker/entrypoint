@@ -6,8 +6,8 @@ test "${no_config_secret:-0}" == 1
 CONFIG_SECRET=$?
 test "${no_config_es:-0}" == 1
 CONFIG_ES=$?
-ES_URI=${es_uri:-http://elasticsearch-master.elasticsearch:9200}
-ES_HOSTNAME=${es_hostname:-elasticsearch-master.elasticsearch}
+ES_URI=${es_uri:-http://127.0.0.1:9200}
+ES_HOSTNAME=${es_hostname:-127.0.0.1}
 CONFIG_FILE=${config_file:-/etc/cortex/application.conf}
 DEFAULT_ANALYZER_URL="https://download.thehive-project.org/analyzers.json"
 ANALYZER_URLS=()
@@ -125,7 +125,7 @@ then
   test ${#RESPONDER_URLS} = 0 && RESPONDER_URLS+=("$DEFAULT_RESPONDER_URL")
   echo "responder.urls=[$(join_urls "${RESPONDER_URLS[@]}")]" >> "$CONFIG_FILE"
 
-  echo 'include file("/etc/cortex/application.conf")' >> "$CONFIG_FILE"
+  echo 'include file("/etc/cortex/application.sample")' >> "$CONFIG_FILE"
 fi
 
 if test $START_DOCKER = 1

@@ -12,13 +12,13 @@
 elasticsearch {
   # Name of the index
   
-  hosts = ["http://elasticsearch-master.elasticsearch:9200"]
+  hosts = ["http://127.0.0.1:9200"]
   index = "cortex"
   
   #index = cortex
   # ElasticSearch instance address.
   # For cluster, join address:port with ',': "http://ip1:9200,ip2:9200,ip3:9200"
-  #uri = "http://elasticsearch-master.elasticsearch:9200"
+  #uri = "http://http://127.0.0.1:9200:9200"
 
   ## Advanced configuration
   # Scroll keepalive.

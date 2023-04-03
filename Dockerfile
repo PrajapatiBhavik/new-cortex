@@ -26,6 +26,15 @@ RUN \
   rm -r /working/ && \
   sbt sbtVersion
 
+RUN apt-get update \
+  && apt-get install -y curl wget build-essential libssl-dev libffi-dev
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash 
+ 
+ENV NVM_DIR=/root/.nvm
+ENV NODE_VERSION=14
+RUN . "$NVM_DIR/nvm.sh" && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION && nvm use default
+
 RUN mkdir Cortex
 
 COPY . Cortex/
@@ -33,9 +42,6 @@ COPY . Cortex/
 WORKDIR Cortex
 
 RUN sbt stage
-#-Dsbt.rootdir=true
-  #&& /opt/4.1.14/sbt clean stage \
-  
   
 RUN mv ./target/universal/stage /opt/cortex \
   && mv ./package/docker/entrypoint /opt/cortex/entrypoint \
@@ -67,7 +73,7 @@ play.http.secret.key = ${?PLAY_SECRET}' >> /etc/cortex/application.conf \
 
 USER cortex
 
-EXPOSE 9001
+EXPOSE 9000
 
 RUN chmod -R 777 /opt/cortex
 

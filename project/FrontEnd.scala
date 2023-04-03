@@ -18,9 +18,9 @@ object FrontEnd extends AutoPlugin {
       val s = streams.value
       s.log.info("Building front-end ...")
       s.log.info("npm install --legacy-peer-deps")
-      Process("npm" :: "install" :: Nil, baseDirectory.value / "www") ! s.log
+      Process("npm" :: "install --legacy-peer-deps" :: Nil, baseDirectory.value / "www") ! s.log
       s.log.info("npm run build --legacy-peer-deps")
-      Process("npm" :: "run" :: "build" :: Nil, baseDirectory.value / "www") ! s.log
+      Process("npm" :: "run" :: "build --legacy-peer-deps" :: Nil, baseDirectory.value / "www") ! s.log
       val dir = baseDirectory.value / "www" / "dist"
       dir.**(AllPassFilter) pair rebase(dir, "www")
     })
